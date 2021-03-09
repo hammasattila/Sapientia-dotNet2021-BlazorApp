@@ -1,0 +1,31 @@
+﻿@page "/"
+@page "/search"
+
+<h3>Search</h3>
+<input @bind="SearchTerm" />
+<button @onclick="SearchMovies">Search</button>
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var movie in Movies)
+        {
+            <div class="col-3">
+                <a href="/details/@movie.ID">
+                    <img style="width:300px;height:450px; margin-bottom: 10px;"
+                         src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/@movie?.Poster.Replace("/", "")" />
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    String SearchTerm;
+    List<Movie> Movies { get; set; } = new List<Movie>();
+
+    void SearchMovies()
+    {
+        var client = new TheMovieDBApiClient();
+        Movies = client.Search(SearchTerm);
+    }
+}
