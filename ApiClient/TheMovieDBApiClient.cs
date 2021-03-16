@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using TheMovieDBApiClient.Api;
-using TheMovieDBApiClient.Extensions;
-using TheMovieDBApiClient.Models;
+using ApiClient.Api;
+using ApiClient.Extensions;
+using ApiClient.Models;
 
-namespace TheMovieDBApiClient
+namespace ApiClient
 {
-    public class TheMovieDBApiClient : ApiClient
+    public class TheMovieDBApiClient : ApiClientBase
     {
         public static string BaseUrl = "https://api.themoviedb.org/3";
         public static string ApiKey = "";

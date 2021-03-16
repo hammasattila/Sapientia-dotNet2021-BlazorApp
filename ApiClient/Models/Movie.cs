@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TheMovieDBApiClient.Models
+namespace ApiClient.Models
 {
     public class Movie
     {

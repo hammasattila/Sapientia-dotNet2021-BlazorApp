@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
-namespace TheMovieDBApiClient
+namespace ApiClient
 {
-    public class ApiClient
+    public class ApiClientBase
     {
         protected static string Get(string searchUrl)
         {

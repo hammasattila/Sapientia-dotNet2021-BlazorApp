@@ -1,0 +1,48 @@
+﻿@using ApiClient.Api
+<div class="row">
+    <div class="col-3">
+        <a href="">
+            @if (MovieDetails.poster_path != null)
+            {
+                <img style="width:300px;height:450px; margin-bottom: 10px;"
+                     src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/@MovieDetails?.poster_path.Replace("/", "")"/>
+            }
+            else
+            {
+                <img style="width:300px;height:450px; margin-bottom: 10px;"
+                     src="https://i.imgur.com/Z2MYNbj.png"/>
+            }
+        </a>
+    </div>
+    <div class="col-3">
+        <h1> @MovieDetails.title </h1>
+        <p> @MovieDetails.overview</p>
+    </div>
+    <div class="col-3">
+        <h1> Credits </h1>
+        <ul>
+            <li> Actor 1</li>
+            <li> Actor 2</li>
+            <li> Actor 3</li>
+        </ul>
+        <button @onclick="@ShowDialog" class="btn btn-primary"> Show More </button>
+    </div>
+</div>
+
+@*<button @onclick="@(() => Modal.Show<Movies>("My Movies"))" class="btn btn-primary">View Movies</button>*@
+
+@code {
+    [Parameter]
+    public MovieDetailResult MovieDetails { get; set; }
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    void ShowDialog()
+    {
+        var parameters = new ModalParameters();
+        parameters.Add("MovieId", MovieDetails.id);
+
+        Modal.Show<MovieDetailCredentialsDialog>("Credits", parameters);
+    }
+}

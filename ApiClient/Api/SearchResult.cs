@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TheMovieDBApiClient.Api
+namespace ApiClient.Api
 {
 
     public class SearchResult

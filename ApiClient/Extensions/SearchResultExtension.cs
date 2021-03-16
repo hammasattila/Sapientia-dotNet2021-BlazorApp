@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TheMovieDBApiClient.Api;
-using TheMovieDBApiClient.Models;
+using ApiClient.Api;
+using ApiClient.Models;
 
-namespace TheMovieDBApiClient.Extensions
+namespace ApiClient.Extensions
 {
     static class SearchResultExtension
     {

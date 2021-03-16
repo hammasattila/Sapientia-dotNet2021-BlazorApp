@@ -1,40 +1,47 @@
 ﻿@page "/details/{MovieId:int}"
 @if (MovieDetails == null)
 {
-    <h3>Details of @MovieDetails.title are loading . . .</h3>
+    <h3>Details of are loading . . .</h3>
 }
 else
 {
-    <div class="col-4">
-        <img style="width:300px;height:450px; margin-bottom: 10px;"
-             src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/@MovieDetails.poster_path.Replace("/", "")" />
-    </div>
-    <div class="col-4">
-        <h1>@MovieDetails.title</h1>
-        @foreach (var trailer in MovieTrailers.results)
-        {
-            <div class="col-12">
-                <iframe width="560" 
-                        height="315" 
-                        src="https://www.youtube.com/embed/@trailer.key" 
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-            </div>
-        }
+    <div class="container-fluid">
+        <MovieDetailGeneral MovieDetails="MovieDetails" />
+        <MovieDetailTrailers MovieTrailers="MovieTrailers" />
     </div>
 }
 
 @code {
-    [Parameter] public int MovieId { get; set; }
-    [Parameter] public MovieDetailResult MovieDetails { get; set; }
-    [Parameter] public MovieTrailersResluts MovieTrailers { get; set; }
+    [Parameter]
+    public int MovieId { get; set; }
+    public MovieDetailResult MovieDetails { get; set; }
+    public MovieTrailersResluts MovieTrailers { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         var client = new TheMovieDBApiClient();
         MovieDetails = client.GetMovieDetail(MovieId);
         MovieTrailers = client.GetMovieTrailers(MovieId);
+
+        TestDb();
+    }
+
+    void TestDb()
+    {
+        using (var db = new SQLiteDbContext())
+        {
+            db.WatchList.Add(new WatchList()
+            {
+                MovieId = MovieDetails.id,
+                Title = MovieDetails.title,
+                PosterPath = MovieDetails.poster_path
+            });
+            db.SaveChanges();
+
+            var watchList = db.WatchList.ToList();
+
+            db.WatchList.RemoveRange(watchList);
+            db.SaveChanges();
+        }
     }
 }
