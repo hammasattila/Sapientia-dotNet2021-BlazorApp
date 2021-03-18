@@ -2,7 +2,7 @@
 
 namespace BlazorAppDb
 {
-    public class WatchList
+    public class WatchListItem
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

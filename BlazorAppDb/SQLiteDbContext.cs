@@ -7,7 +7,7 @@ namespace BlazorAppDb
     {
         public class SQLiteDbContext : DbContext
         {
-            public DbSet<WatchList> WatchList { get; set; }
+            public DbSet<WatchListItem> WatchList { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder options)
                 => options.UseSqlite("Data Source=sqlitedemo.db");
         }

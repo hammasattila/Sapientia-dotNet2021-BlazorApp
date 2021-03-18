@@ -1,0 +1,13 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        @foreach (var movie in Movies)
+        {
+            <MovieCard MovieInfo="movie" />
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<Movie> Movies { get; set; }
+}

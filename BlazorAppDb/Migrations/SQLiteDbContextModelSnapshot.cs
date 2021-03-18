@@ -15,7 +15,7 @@ namespace BlazorAppDb.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("BlazorAppDb.WatchList", b =>
+            modelBuilder.Entity("BlazorAppDb.WatchListItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace BlazorAppDb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WatchList");
+                    b.ToTable("WatchListItem");
                 });
 #pragma warning restore 612, 618
         }

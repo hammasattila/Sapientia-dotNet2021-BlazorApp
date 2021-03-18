@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlazorAppDb
 {
-    class WatchListDbService
+    public class WatchListDbService
     {
         public bool InWatchList(int movieId)
         {
@@ -15,7 +15,7 @@ namespace BlazorAppDb
             }
         }
 
-        public bool TryAdd(WatchList watchlist)
+        public bool TryAdd(WatchListItem watchlist)
         {
             if (InWatchList(watchlist.MovieId))
             {
@@ -47,7 +47,7 @@ namespace BlazorAppDb
             return false;
         }
 
-        public List<WatchList> Get()
+        public List<WatchListItem> Get()
         {
             using (var db = new SQLiteDbContext())
             {

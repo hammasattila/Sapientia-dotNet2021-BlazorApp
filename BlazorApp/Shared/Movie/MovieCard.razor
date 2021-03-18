@@ -1,0 +1,16 @@
+﻿<div class="col-3">
+    <a href="/details/@MovieInfo.ID" style="text-decoration: none;">
+        <div class="card m-2">
+            <div class="bg-image hover-zoom">
+                <img class="w-100"
+                    src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/@MovieInfo?.Poster.Replace("/", "")" />
+            </div>
+            <h4 class="text-truncate" style="text-align: center;">@MovieInfo.Title</h4>
+        </div>
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public Movie MovieInfo { get; set; }
+}

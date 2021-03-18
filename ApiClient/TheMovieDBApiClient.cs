@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Resources;
 using System.Text.Json;
 using ApiClient.Api;
 using ApiClient.Extensions;
@@ -10,8 +12,29 @@ namespace ApiClient
 {
     public class TheMovieDBApiClient : ApiClientBase
     {
-        public static string BaseUrl = "https://api.themoviedb.org/3";
-        public static string ApiKey = "";
+        public static string BaseUrl = null;
+        public static string ApiKey = null;
+
+        public TheMovieDBApiClient()
+        {
+            if (string.IsNullOrEmpty(BaseUrl))
+            {
+                BaseUrl = ConfigurationManager.AppSettings.Get("BaseUrl");
+                if (string.IsNullOrEmpty(BaseUrl))
+                {
+                    throw new NullReferenceException();
+                }
+            }
+
+            if (string.IsNullOrEmpty(ApiKey))
+            {
+                ApiKey = ConfigurationManager.AppSettings.Get("ApiKey");
+                if(string.IsNullOrEmpty(ApiKey))
+                {
+                    throw new NullReferenceException();
+                }
+            }
+        }
 
         public List<Models.Movie> Search(string searchQuery)
         {
@@ -41,6 +64,14 @@ namespace ApiClient
                 $"&language=en-US";
 
             return Get<MovieTrailersResluts>(searchUrl);
+        }
+
+        public MovieCreditsResults GetMovieCredits(int movieId)
+        {
+            var searchUrl = $"{BaseUrl}/movie/{movieId}/credits?api_key={ApiKey}" +
+                $"&language=en-US";
+
+           return Get<MovieCreditsResults>(searchUrl);
         }
     }
 }
